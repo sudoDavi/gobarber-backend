@@ -10,8 +10,10 @@ This API can receive requests to create users, change an user's avatar and creat
 
 ## Technologies used
 
-* TypeORM
 * Express
+* TypeORM
+* Multer
+* JWT
 * cors
 
 
