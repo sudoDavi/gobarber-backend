@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import { inject, injectable } from 'tsyringe';
+
 import uploadConfig from '@config/upload';
 
 import AppError from '@shared/errors/AppError';
@@ -12,10 +14,11 @@ interface IRequest {
   avatarFilename: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
   private usersRepository: IUsersRepository;
 
-  constructor(usersRepository: IUsersRepository) {
+  constructor(@inject('UsersRepository') usersRepository: IUsersRepository) {
     this.usersRepository = usersRepository;
   }
 
