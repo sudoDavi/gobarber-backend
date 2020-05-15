@@ -41,7 +41,7 @@ describe('CreateUser', () => {
 
     expect(user).toHaveProperty('id');
     expect(isUuid(user.id)).toBe(true);
-    expect(
+    await expect(
       createUserService.execute({
         name: 'John Doe',
         email: 'johndoe@email.com',

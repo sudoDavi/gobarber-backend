@@ -68,7 +68,7 @@ describe('UpdateUserAvatar', () => {
       fakeStorageProvider,
     );
 
-    expect(
+    await expect(
       updateUserAvatarService.execute({
         user_id: 'non-existant user_id',
         avatarFilename: 'Avatar_File_Name.jpg',

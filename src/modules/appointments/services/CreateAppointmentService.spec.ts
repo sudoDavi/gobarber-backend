@@ -33,7 +33,7 @@ describe('CreateAppointment', () => {
 
     expect(firstAppointment).toHaveProperty('id');
     expect(firstAppointment.provider_id).toBe('provider-test-id_123');
-    expect(
+    await expect(
       createAppointmentService.execute({
         date: sameDate,
         provider_id: 'provider-test-id_321',
