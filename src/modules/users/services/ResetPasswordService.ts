@@ -35,7 +35,16 @@ class RsetPasswordService {
 
     const tokenDate = userToken.created_at;
 
-    const expireDate = tokenDate.setHours(tokenDate.getHours() + 2);
+    const expireDate = new Date(tokenDate).setHours(tokenDate.getHours() + 2);
+
+    // The code stopped working for some reason, so I had to change it and this
+    // console.log is for testing the test
+    // console.log(
+    //   'data: %s expire_date: %s bool: %s',
+    //   tokenDate,
+    //   new Date(expireDate),
+    //   isAfter(Date.now(), expireDate),
+    // );
 
     if (isAfter(Date.now(), expireDate)) {
       throw new AppError('Expired Token');

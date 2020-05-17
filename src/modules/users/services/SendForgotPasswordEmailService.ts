@@ -40,7 +40,7 @@ class LostPasswordEmailService {
       'views',
       'forgot_password.hbs',
     );
-    console.log(forgotPasswordTemplate);
+    // console.log(forgotPasswordTemplate);
 
     await this.emailProvider.sendEmail({
       to: {
