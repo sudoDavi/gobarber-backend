@@ -16,7 +16,7 @@ export default {
       name the file had.
       Creating a hash with the sum of those random bytes and the filename,
       that way the user can't inject malicious characters. */
-      const fileName = `${fileHash}-${file.originalname}`;
+      const fileName = `${fileHash}-${file.originalname.replace(/\s+/g, '')}`;
 
       return callback(null, fileName);
     },
