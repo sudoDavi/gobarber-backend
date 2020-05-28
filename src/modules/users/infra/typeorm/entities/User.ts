@@ -8,6 +8,8 @@ import {
 
 import { Exclude, Expose } from 'class-transformer';
 
+import storageConfig from '@config/storage';
+
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
@@ -34,9 +36,18 @@ class User {
 
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
-    return this.avatar
-      ? `${process.env.APP_API_URL}/files/${this.avatar}`
-      : null;
+    if (!this.avatar) {
+      return null;
+    }
+
+    switch (storageConfig.driver) {
+      case 'disk':
+        return `${process.env.APP_API_URL}/files/${this.avatar}`;
+      case 's3':
+        return `https://${storageConfig.config.aws.bucketName}.s3.amazonaws.com/${this.avatar}`;
+      default:
+        return null;
+    }
   }
 }
 
