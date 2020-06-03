@@ -40,7 +40,7 @@ class ListProviderAppointmentsService {
         day,
       });
 
-      console.log('query feita');
+      // console.log('query feita');
 
       await this.cacheProvider.save(cacheKey, appointments);
     }
