@@ -1,5 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
@@ -15,6 +17,9 @@ class ListProviderAppointmentsService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -23,14 +28,22 @@ class ListProviderAppointmentsService {
     year,
     day,
   }: IRequest): Promise<Appointment[]> {
-    const appointments = await this.appointmentsRepository.findAppointmentsInDay(
-      {
+    const cacheKey = `provider-appointments-list:${provider_id}:${year}-${month}-${day}`;
+
+    let appointments = await this.cacheProvider.read<Appointment[]>(cacheKey);
+
+    if (!appointments) {
+      appointments = await this.appointmentsRepository.findAppointmentsInDay({
         provider_id,
         year,
         month,
         day,
-      },
-    );
+      });
+
+      console.log('query feita');
+
+      await this.cacheProvider.save(cacheKey, appointments);
+    }
 
     return appointments;
   }
