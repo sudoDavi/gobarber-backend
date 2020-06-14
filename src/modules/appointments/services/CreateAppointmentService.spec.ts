@@ -56,7 +56,7 @@ describe('CreateAppointment', () => {
       createAppointmentService.execute({
         date: sameDate,
         recipient_id: 'test-id',
-        provider_id: 'provider-test-id_321',
+        provider_id: 'provider-test-id_123',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
