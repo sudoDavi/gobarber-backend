@@ -35,7 +35,7 @@ yarn typeorm migrations:run && yarn dev:server
 
 ## Made by
 
-Davi Wendt – contato@daviwendt.com
+Davi Wendt
 
 
 ## Contributing
